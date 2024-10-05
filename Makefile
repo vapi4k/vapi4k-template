@@ -8,7 +8,7 @@ clean:
 build: clean
 	./gradlew build -x test
 
-jar: compile
+jar: build
 	./gradlew buildFatJar
 
 run-jar: jar
