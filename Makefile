@@ -5,7 +5,7 @@ default: versioncheck
 clean:
 	./gradlew clean
 
-compile: clean
+build: clean
 	./gradlew build -x test
 
 jar: compile
