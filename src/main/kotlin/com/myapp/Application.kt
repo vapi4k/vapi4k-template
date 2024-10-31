@@ -19,7 +19,6 @@ import com.vapi4k.api.voice.PlayHTVoiceIdType
 import com.vapi4k.plugin.Vapi4k
 import com.vapi4k.plugin.Vapi4kServer.logger
 import io.ktor.server.application.Application
-import io.ktor.server.application.call
 import io.ktor.server.application.install
 import io.ktor.server.cio.CIO
 import io.ktor.server.engine.embeddedServer
@@ -37,6 +36,7 @@ fun main() {
 }
 
 fun Application.module() {
+  // Install the Vapi4k Ktor plugin and configure the Vapi4k assistants
   install(Vapi4k) {
     onRequest(ASSISTANT_REQUEST, FUNCTION_CALL, TOOL_CALL) { requestContext ->
       logger.info { requestContext }
