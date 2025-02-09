@@ -1,7 +1,6 @@
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 
 val kotlin_version: String by project
-val logback_version: String by project
 val vapi4k_version: String by project
 
 plugins {
@@ -32,7 +31,7 @@ ktor {
 
 // This must match the version defined in system.properties
 kotlin {
-  jvmToolchain(11)
+  jvmToolchain(17)
 }
 
 repositories {
