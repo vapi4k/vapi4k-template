@@ -1,7 +1,7 @@
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 
-val kotlin_version: String by project
-val vapi4k_version: String by project
+val kotlinVersion: String by project
+val vapi4kVersion: String by project
 
 plugins {
   val kotlinVersion: String by System.getProperties()
@@ -41,10 +41,10 @@ repositories {
 }
 
 dependencies {
-  implementation("com.github.vapi4k.vapi4k:vapi4k-core:$vapi4k_version")
-  implementation("com.github.vapi4k.vapi4k:vapi4k-dbms:$vapi4k_version")
+  implementation("com.github.vapi4k.vapi4k:vapi4k-core:$vapi4kVersion")
+  implementation("com.github.vapi4k.vapi4k:vapi4k-dbms:$vapi4kVersion")
 
-  testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
+  testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
 }
 
 // Required for heroku deployments
