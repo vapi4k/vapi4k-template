@@ -1,6 +1,6 @@
 # Vapi4k Application Template
 
-[![Kotlin version](https://img.shields.io/badge/kotlin-2.1.10-red?logo=kotlin)](http://kotlinlang.org)
+[![Kotlin version](https://img.shields.io/badge/kotlin-2.2.0-red?logo=kotlin)](http://kotlinlang.org)
 [![ktlint](https://img.shields.io/badge/ktlint%20code--style-%E2%9D%A4-FF4081)](https://pinterest.github.io/ktlint/)
 
 This template is a starting point for creating a new [Vapi](https://vapi.ai) application using

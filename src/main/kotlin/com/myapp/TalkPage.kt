@@ -1,6 +1,6 @@
 package com.myapp
 
-import com.vapi4k.api.json.toJsonElement
+import com.github.pambrose.common.json.toJsonElement
 import com.vapi4k.dsl.web.VapiWeb.vapiTalkButton
 import kotlinx.html.HTML
 import kotlinx.html.body
