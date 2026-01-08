@@ -56,3 +56,8 @@ tasks.withType<DependencyUpdatesTask> {
     listOf("BETA", "-RC").any { candidate.version.uppercase().contains(it) }
   }
 }
+
+// This will allow us to grab recent -SNAPSHOT versions from jitpack.io
+configurations.all {
+  resolutionStrategy.cacheChangingModulesFor(0, "seconds")
+}
