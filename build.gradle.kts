@@ -53,7 +53,7 @@ tasks.named("build") {
 
 tasks.withType<DependencyUpdatesTask> {
   rejectVersionIf {
-    listOf("BETA", "-RC").any { candidate.version.uppercase().contains(it) }
+    listOf("-RC", "-BETA", "-ALPHA", "-M").any { candidate.version.uppercase().contains(it) }
   }
 }
 

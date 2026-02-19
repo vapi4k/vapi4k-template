@@ -71,7 +71,7 @@ fun Application.module() {
           firstMessage = "Hello! I am calling to ask you a question."
 
           anthropicModel {
-            modelType = AnthropicModelType.CLAUDE_3_HAIKU
+            modelType = AnthropicModelType.CLAUDE_OPUS_4_20250514
             systemMessage = "You're a polite AI assistant named Vapi who is fun to talk with."
 
             tools {
@@ -95,7 +95,7 @@ fun Application.module() {
           firstMessage = "Hello! How can I help you today?"
 
           groqModel {
-            modelType = GroqModelType.LLAMA3_70B
+            modelType = GroqModelType.LLAMA3_70B_8192
             systemMessage = "You're a polite AI assistant named Vapi who is fun to talk with."
 
             tools {

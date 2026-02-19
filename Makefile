@@ -14,8 +14,11 @@ jar: build
 run-jar: jar
 	./gradlew runFatJar
 
+refresh:
+	./gradlew --refresh-dependencies dependencyUpdates
+
 versioncheck:
-	./gradlew dependencyUpdates
+	./gradlew dependencyUpdates --no-configuration-cache
 
 # Assign your docker hub username here
 IMAGE_NAME := docker_hub_username/vapi4k-template
