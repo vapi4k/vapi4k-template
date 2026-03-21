@@ -5,9 +5,8 @@ import com.vapi4k.dsl.call.VapiApiImpl.Companion.vapiApi
 import io.ktor.client.statement.bodyAsText
 import kotlinx.coroutines.runBlocking
 
-object CallCustomer {
-  @JvmStatic
-  fun main(args: Array<String>) {
+fun main() {
+  runBlocking {
     val callResp =
       vapiApi()
         .phone {
@@ -18,9 +17,7 @@ object CallCustomer {
           }
         }
 
-    runBlocking {
-      println("Call status: ${callResp.status}")
-      println("Call response: ${callResp.bodyAsText().toJsonElement()}")
-    }
+    println("Call status: ${callResp.status}")
+    println("Call response: ${callResp.bodyAsText().toJsonElement()}")
   }
 }

@@ -1,0 +1,52 @@
+# Vapi4k Application Template
+
+> Kotlin/Ktor web server template for building AI voice applications with [Vapi](https://vapi.ai) using the [Vapi4k](https://github.com/vapi4k/vapi4k) framework.
+
+## Overview
+
+This is a starter template demonstrating how to build voice AI applications with Vapi4k — a Kotlin DSL framework that wraps the Vapi platform. It configures three application types in a single Ktor server:
+
+- **Inbound call app** — handles incoming voice calls (OpenAI GPT-4 Turbo + DeepGram voice)
+- **Outbound call app** (`/callCustomer`) — initiates outbound calls (Anthropic Claude + ElevenLabs voice)
+- **Web app** (`/talkApp`) — browser-based talk button UI served at `GET /talk` (Groq Llama3 + PlayHT voice)
+
+Each app configures an AI model, a voice provider, a system message, and service tools (e.g., `WeatherLookup`).
+
+## Key Concepts
+
+- **Kotlin DSL configuration**: All Vapi4k apps are configured via nested DSL builders inside the `Vapi4k` Ktor plugin
+- **Service tools**: Classes with `@ToolCall` annotations define callable tools; parameters use `@Param`; the annotated method returns a String
+- **Three app types**: `inboundCallApplication`, `outboundCallApplication`, and `webApplication` — each with its own server path and assistant configuration
+- **Talk button**: `vapiTalkButton` DSL generates a browser-based voice interface with customizable button states (idle, loading, active)
+
+## Tech Stack
+
+- **Language**: Kotlin (JVM 17)
+- **Web framework**: Ktor with CIO engine
+- **Voice AI**: Vapi4k (`vapi4k-core` + `vapi4k-dbms`) via JitPack
+- **Build**: Gradle with Kotlin DSL, version catalog (`gradle/libs.versions.toml`)
+- **HTML rendering**: kotlinx.html DSL
+- **Deployment**: Heroku (Procfile), Docker (Alpine + JDK 17), or standalone fat JAR
+
+## Project Structure
+
+- `src/main/kotlin/com/myapp/Application.kt` — Entry point, Ktor server setup, Vapi4k plugin configuration, and `WeatherLookup` service tool
+- `src/main/kotlin/com/myapp/TalkPage.kt` — kotlinx.html page with `vapiTalkButton` for the web app
+- `src/main/kotlin/com/myapp/CallCustomer.kt` — Standalone CLI for triggering outbound calls via `requestOutboundCall()`
+- `build.gradle.kts` — Build config with fat JAR, JitPack repo, and Heroku stage task
+- `gradle/libs.versions.toml` — Version catalog (single source of truth for all dependency versions)
+
+## Build & Run
+
+```bash
+./gradlew build -x test       # Build (no tests in this template)
+./gradlew buildFatJar          # Create fat JAR
+./gradlew runFatJar            # Run the fat JAR
+./gradlew dependencyUpdates    # Check for dependency updates
+```
+
+## Documentation
+
+- [Vapi4k Docs](https://docs.vapi4k.com/)
+- [Vapi4k GitHub](https://github.com/vapi4k/vapi4k)
+- [Vapi Platform](https://vapi.ai)

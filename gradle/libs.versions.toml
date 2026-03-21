@@ -1,8 +1,8 @@
 [versions]
-kotlin = "2.3.10"
-ktor = "3.4.0"
+kotlin = "2.3.20"
+ktor = "3.4.1"
 versions = "0.53.0"
-vapi4k = "1.4.0"
+vapi4k = "1.6.1"
 
 [libraries]
 vapi4k-core = { group = "com.github.vapi4k.vapi4k", name = "vapi4k-core", version.ref = "vapi4k" }

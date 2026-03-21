@@ -1,14 +1,11 @@
-FROM alpine
+FROM eclipse-temurin:21-jre-alpine
 # LABEL org.opencontainers.image.authors="my@name.com"
-RUN apk add openjdk17-jre
 
 # Define the user to use in this instance to prevent using root that even in a container, can be a security risk.
 ENV APPLICATION_USER=vapi_user
 
 # Then add the user, create the /app folder and give permissions to our user.
-RUN adduser --disabled-password --gecos '' $APPLICATION_USER
-RUN mkdir /app
-RUN chown -R $APPLICATION_USER /app
+RUN adduser --disabled-password --gecos '' $APPLICATION_USER && mkdir /app && chown -R $APPLICATION_USER /app
 
 # Mark this container to use the specified $APPLICATION_USER
 USER $APPLICATION_USER

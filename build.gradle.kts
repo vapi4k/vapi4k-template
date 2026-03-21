@@ -1,7 +1,6 @@
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 
 plugins {
-  java
   alias(libs.plugins.kotlin.jvm)
   alias(libs.plugins.ktor)
   alias(libs.plugins.versions)
@@ -24,7 +23,7 @@ ktor {
 
 // This must match the version defined in system.properties
 kotlin {
-  jvmToolchain(17)
+  jvmToolchain(21)
 }
 
 repositories {
@@ -40,14 +39,14 @@ dependencies {
 
 // Required for heroku deployments
 tasks.register("stage") {
-  dependsOn("build", "clean")
+  dependsOn("buildFatJar", "clean")
   doLast {
     println("Stage task completed")
   }
 }
 
 // Required for heroku deployments
-tasks.named("build") {
+tasks.named("buildFatJar") {
   mustRunAfter("clean")
 }
 

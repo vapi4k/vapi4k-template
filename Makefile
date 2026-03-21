@@ -38,4 +38,4 @@ push-docker:
 release: build-docker push-docker
 
 upgrade-wrapper:
-	./gradlew wrapper --gradle-version=9.2.1 --distribution-type=bin
+	./gradlew wrapper --gradle-version=9.4.1 --distribution-type=bin
