@@ -1,12 +1,12 @@
 [versions]
 kotlin = "2.3.20"
-ktor = "3.4.1"
+ktor = "3.4.2"
 versions = "0.53.0"
-vapi4k = "1.6.1"
+vapi4k = "1.7.0"
 
 [libraries]
-vapi4k-core = { group = "com.github.vapi4k.vapi4k", name = "vapi4k-core", version.ref = "vapi4k" }
-vapi4k-dbms = { group = "com.github.vapi4k.vapi4k", name = "vapi4k-dbms", version.ref = "vapi4k" }
+vapi4k-core = { group = "com.vapi4k", name = "vapi4k-core", version.ref = "vapi4k" }
+vapi4k-dbms = { group = "com.vapi4k", name = "vapi4k-dbms", version.ref = "vapi4k" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

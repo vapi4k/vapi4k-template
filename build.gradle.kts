@@ -29,7 +29,6 @@ kotlin {
 repositories {
   google()
   mavenCentral()
-  maven(url = "https://jitpack.io")  // Required for the vapi4k jars
 }
 
 dependencies {
