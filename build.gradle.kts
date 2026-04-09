@@ -27,7 +27,6 @@ kotlin {
 }
 
 repositories {
-  google()
   mavenCentral()
 }
 
@@ -53,9 +52,4 @@ tasks.withType<DependencyUpdatesTask> {
   rejectVersionIf {
     listOf("-RC", "-BETA", "-ALPHA", "-M").any { candidate.version.uppercase().contains(it) }
   }
-}
-
-// This will allow us to grab recent -SNAPSHOT versions from jitpack.io
-configurations.all {
-  resolutionStrategy.cacheChangingModulesFor(0, "seconds")
 }

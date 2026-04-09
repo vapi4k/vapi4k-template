@@ -9,5 +9,5 @@ It contains some simple applications that can be deployed to
 Heroku or any docker-supported environment.
 
 For more information on how to use this template,
-please refer to the [Vapi4k documentation](https://vapi4k.com/).
+please refer to the [Vapi4k documentation](https://docs.vapi4k.com/).
 

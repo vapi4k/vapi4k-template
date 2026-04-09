@@ -6,9 +6,9 @@
 
 This is a starter template demonstrating how to build voice AI applications with Vapi4k — a Kotlin DSL framework that wraps the Vapi platform. It configures three application types in a single Ktor server:
 
-- **Inbound call app** — handles incoming voice calls (OpenAI GPT-4 Turbo + DeepGram voice)
-- **Outbound call app** (`/callCustomer`) — initiates outbound calls (Anthropic Claude + ElevenLabs voice)
-- **Web app** (`/talkApp`) — browser-based talk button UI served at `GET /talk` (Groq Llama3 + PlayHT voice)
+- **Inbound call app** — handles incoming voice calls (OpenAI GPT-4 Turbo + DeepGram Luna voice)
+- **Outbound call app** (`/callCustomer`) — initiates outbound calls (Anthropic Claude Opus 4 + ElevenLabs Paula voice)
+- **Web app** (`/talkApp`) — browser-based talk button UI served at `GET /talk` (Groq Llama3 70B + PlayHT Jack voice)
 
 Each app configures an AI model, a voice provider, a system message, and service tools (e.g., `WeatherLookup`).
 
@@ -21,19 +21,19 @@ Each app configures an AI model, a voice provider, a system message, and service
 
 ## Tech Stack
 
-- **Language**: Kotlin (JVM 17)
+- **Language**: Kotlin (JVM 21)
 - **Web framework**: Ktor with CIO engine
-- **Voice AI**: Vapi4k (`vapi4k-core` + `vapi4k-dbms`) via JitPack
+- **Voice AI**: Vapi4k (`vapi4k-core` + `vapi4k-dbms`) via Maven Central
 - **Build**: Gradle with Kotlin DSL, version catalog (`gradle/libs.versions.toml`)
 - **HTML rendering**: kotlinx.html DSL
-- **Deployment**: Heroku (Procfile), Docker (Alpine + JDK 17), or standalone fat JAR
+- **Deployment**: Heroku (Procfile), Docker (Alpine + JDK 21), or standalone fat JAR
 
 ## Project Structure
 
 - `src/main/kotlin/com/myapp/Application.kt` — Entry point, Ktor server setup, Vapi4k plugin configuration, and `WeatherLookup` service tool
 - `src/main/kotlin/com/myapp/TalkPage.kt` — kotlinx.html page with `vapiTalkButton` for the web app
-- `src/main/kotlin/com/myapp/CallCustomer.kt` — Standalone CLI for triggering outbound calls via `requestOutboundCall()`
-- `build.gradle.kts` — Build config with fat JAR, JitPack repo, and Heroku stage task
+- `src/main/kotlin/com/myapp/CallCustomer.kt` — Standalone CLI for triggering outbound calls via `vapiApi().phone { outboundCall { ... } }`
+- `build.gradle.kts` — Build config with fat JAR and Heroku stage task
 - `gradle/libs.versions.toml` — Version catalog (single source of truth for all dependency versions)
 
 ## Build & Run

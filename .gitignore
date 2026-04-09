@@ -3,6 +3,7 @@
 build/
 out/
 secrets/
+.env
 .claude/worktrees
 .claude/*.lock
 
