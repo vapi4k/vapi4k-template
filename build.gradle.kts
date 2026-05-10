@@ -6,28 +6,31 @@ plugins {
   alias(libs.plugins.versions)
 }
 
-group = "com.myapp"
-version = "1.1.0"
+val mainClassName = "com.myapp.ApplicationKt"
+val fatJarName = "vapi4k-template.jar"
+val jvmVersion = libs.versions.jvm.get().toInt()
+
+val buildFatJarTask = "buildFatJar"
+val cleanTask = "clean"
+val stageTask = "stage"
+
+val preReleaseSuffixes = listOf("-RC", "-BETA", "-ALPHA", "-M")
 
 application {
-  mainClass.set("com.myapp.ApplicationKt")
+  mainClass.set(mainClassName)
 }
 
 ktor {
   fatJar {
     // Change this to whatever name you want
     // It also has to be changed in the Dockerfile
-    archiveFileName.set("vapi4k-template.jar")
+    archiveFileName.set(fatJarName)
   }
 }
 
 // This must match the version defined in system.properties
 kotlin {
-  jvmToolchain(21)
-}
-
-repositories {
-  mavenCentral()
+  jvmToolchain(jvmVersion)
 }
 
 dependencies {
@@ -36,20 +39,20 @@ dependencies {
 }
 
 // Required for heroku deployments
-tasks.register("stage") {
-  dependsOn("buildFatJar", "clean")
+tasks.register(stageTask) {
+  dependsOn(buildFatJarTask, cleanTask)
   doLast {
     println("Stage task completed")
   }
 }
 
 // Required for heroku deployments
-tasks.named("buildFatJar") {
-  mustRunAfter("clean")
+tasks.named(buildFatJarTask) {
+  mustRunAfter(cleanTask)
 }
 
 tasks.withType<DependencyUpdatesTask> {
   rejectVersionIf {
-    listOf("-RC", "-BETA", "-ALPHA", "-M").any { candidate.version.uppercase().contains(it) }
+    preReleaseSuffixes.any { candidate.version.uppercase().contains(it) }
   }
 }

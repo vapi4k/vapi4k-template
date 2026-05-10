@@ -1,7 +1,9 @@
 [versions]
-kotlin = "2.3.20"
-ktor = "3.4.2"
-versions = "0.53.0"
+gradle = "9.5.0"
+jvm = "21"
+kotlin = "2.3.21"
+ktor = "3.4.3"
+versions = "0.54.0"
 vapi4k = "1.7.0"
 
 [libraries]
