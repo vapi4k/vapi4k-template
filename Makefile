@@ -1,41 +1,56 @@
-VERSION=1.0.0
+.PHONY: default help clean build jar run-jar refresh versioncheck build-docker run-docker push-docker release upgrade-wrapper _require-version _require-gradle-version _require-image
 
-default: versioncheck
+VERSION := $(shell awk -F'=' '/^version[[:space:]]*=/{gsub(/[[:space:]]/,"",$$2); print $$2; exit}' gradle.properties 2>/dev/null)
+GRADLE_VERSION := $(shell awk -F'"' '/^gradle[[:space:]]*=/{gsub(/[[:space:]]/,"",$$2); print $$2; exit}' gradle/libs.versions.toml 2>/dev/null)
 
-clean:
+# Override on the command line: `IMAGE_NAME=myorg/vapi4k-template make release`
+IMAGE_NAME ?= docker_hub_username/vapi4k-template
+PLATFORMS  := linux/amd64,linux/arm64/v8
+
+default: help
+
+help: ## Show this help message
+	@awk 'BEGIN {FS = ":.*?## "; printf "Targets (project v$(VERSION), gradle v$(GRADLE_VERSION)):\n\n"} /^[A-Za-z0-9_.-]+:.*?## / {printf "  \033[36m%-16s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
+
+clean: ## Remove build artifacts
 	./gradlew clean
 
-build: clean
+build: ## Build (skips tests). Run `make clean build` for a cold rebuild.
 	./gradlew build -x test
 
-jar: build
+jar: build ## Build the fat JAR (build/libs/vapi4k-template.jar)
 	./gradlew buildFatJar
 
-run-jar: jar
+run-jar: jar ## Build and run the fat JAR
 	./gradlew runFatJar
 
-refresh:
+refresh: ## Refresh dependencies and check for updates
 	./gradlew --refresh-dependencies dependencyUpdates
 
-versioncheck:
+versioncheck: ## Check for available dependency updates
 	./gradlew dependencyUpdates --no-configuration-cache
 
-# Assign your docker hub username here
-IMAGE_NAME := docker_hub_username/vapi4k-template
-PLATFORMS := linux/amd64,linux/arm64/v8
+build-docker: _require-version _require-image jar ## Build a single-arch Docker image tagged with the project version
+	docker build -t $(IMAGE_NAME):$(VERSION) .
 
-build-docker: jar
-	docker build -t ${IMAGE_NAME}:${VERSION} .
+run-docker: _require-version _require-image ## Run the Docker image on port 8080
+	docker run --rm -p 8080:8080 $(IMAGE_NAME):$(VERSION)
 
-run-docker:
-	docker run --rm -p 8080:8080 ${IMAGE_NAME}:${VERSION}
-
-push-docker:
+push-docker: _require-version _require-image ## Build and push a multiarch image (linux/amd64, linux/arm64/v8)
 	# prepare multiarch
 	docker buildx use buildx 2>/dev/null || docker buildx create --use --name=buildx
-	docker buildx build --platform ${PLATFORMS} --push -t ${IMAGE_NAME}:latest -t ${IMAGE_NAME}:${VERSION} .
+	docker buildx build --platform $(PLATFORMS) --push -t $(IMAGE_NAME):latest -t $(IMAGE_NAME):$(VERSION) .
 
-release: build-docker push-docker
+release: push-docker ## Build and push the multiarch Docker image (single buildx pass)
 
-upgrade-wrapper:
-	./gradlew wrapper --gradle-version=9.4.1 --distribution-type=bin
+upgrade-wrapper: _require-gradle-version ## Upgrade the Gradle wrapper to the version pinned in libs.versions.toml
+	./gradlew wrapper --gradle-version=$(GRADLE_VERSION) --distribution-type=bin
+
+_require-version:
+	@[ -n "$(VERSION)" ] || { echo "ERROR: Could not determine project version from gradle.properties" >&2; exit 1; }
+
+_require-gradle-version:
+	@[ -n "$(GRADLE_VERSION)" ] || { echo "ERROR: Could not determine gradle version from gradle/libs.versions.toml" >&2; exit 1; }
+
+_require-image:
+	@[ "$(IMAGE_NAME)" != "docker_hub_username/vapi4k-template" ] || { echo "ERROR: Set IMAGE_NAME first (e.g. IMAGE_NAME=myorg/vapi4k-template make ...)" >&2; exit 1; }
