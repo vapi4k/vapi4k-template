@@ -1,7 +1,9 @@
-.PHONY: default help clean build jar run-jar refresh versioncheck build-docker run-docker push-docker release upgrade-wrapper _require-version _require-gradle-version _require-image
+.PHONY: default help clean build jar run-jar refresh versioncheck build-docker run-docker \
+        push-docker release upgrade-wrapper \
+        _require-version _require-gradle-version _require-image
 
-VERSION := $(shell awk -F'=' '/^version[[:space:]]*=/{gsub(/[[:space:]]/,"",$$2); print $$2; exit}' gradle.properties 2>/dev/null)
-GRADLE_VERSION := $(shell awk -F'"' '/^gradle[[:space:]]*=/{gsub(/[[:space:]]/,"",$$2); print $$2; exit}' gradle/libs.versions.toml 2>/dev/null)
+VERSION := $(shell sed -n 's/^version=\(.*\)/\1/p' gradle.properties)
+GRADLE_VERSION := $(shell sed -n 's/^gradle = "\(.*\)"/\1/p' gradle/libs.versions.toml)
 
 # Override on the command line: `IMAGE_NAME=myorg/vapi4k-template make release`
 IMAGE_NAME ?= docker_hub_username/vapi4k-template
@@ -9,8 +11,10 @@ PLATFORMS  := linux/amd64,linux/arm64/v8
 
 default: help
 
-help: ## Show this help message
-	@awk 'BEGIN {FS = ":.*?## "; printf "Targets (project v$(VERSION), gradle v$(GRADLE_VERSION)):\n\n"} /^[A-Za-z0-9_.-]+:.*?## / {printf "  \033[36m%-16s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
+help:  ## Show this help (list of targets)
+	@awk 'BEGIN {FS = ":.*?## "; printf "Usage: make <target>\n\nTargets:\n"} \
+		/^[a-zA-Z0-9_-]+:.*?## / {printf "  \033[36m%-22s\033[0m %s\n", $$1, $$2}' \
+		$(MAKEFILE_LIST)
 
 clean: ## Remove build artifacts
 	./gradlew clean
@@ -43,7 +47,11 @@ push-docker: _require-version _require-image ## Build and push a multiarch image
 
 release: push-docker ## Build and push the multiarch Docker image (single buildx pass)
 
-upgrade-wrapper: _require-gradle-version ## Upgrade the Gradle wrapper to the version pinned in libs.versions.toml
+# Gradle's documented upgrade procedure: the first run rewrites
+# gradle-wrapper.properties using the *old* wrapper jar; the second run
+# regenerates the wrapper itself with the new version.
+upgrade-wrapper: _require-gradle-version  ## Upgrade the Gradle wrapper to the version pinned in libs.versions.toml
+	./gradlew wrapper --gradle-version=$(GRADLE_VERSION) --distribution-type=bin
 	./gradlew wrapper --gradle-version=$(GRADLE_VERSION) --distribution-type=bin
 
 _require-version:
