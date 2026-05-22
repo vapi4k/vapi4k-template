@@ -3,7 +3,7 @@
         _require-version _require-gradle-version _require-image
 
 VERSION := $(shell sed -n 's/^version=\(.*\)/\1/p' gradle.properties)
-GRADLE_VERSION := $(shell sed -n 's/^gradle = "\(.*\)"/\1/p' gradle/libs.versions.toml)
+GRADLE_VERSION := $(shell sed -n 's/^gradle-wrapper = "\(.*\)"/\1/p' gradle/libs.versions.toml)
 
 # Override on the command line: `IMAGE_NAME=myorg/vapi4k-template make release`
 IMAGE_NAME ?= docker_hub_username/vapi4k-template
