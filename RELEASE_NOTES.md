@@ -1,39 +1,40 @@
-# Release Notes — v1.7.0 (2026-04-08)
+# Release Notes — v1.2.0 (2026-07-10)
 
 The full version history is in [CHANGELOG.md](CHANGELOG.md). This file
 covers the most recent release only and is intended for use as the body of a
 GitHub release.
 
+This is the first template release versioned independently of the bundled
+Vapi4k library.
+
 ## Highlights
 
-- **Vapi4k 1.7.0** and **Ktor 3.4.2** — pulled in the latest upstream features
-  and fixes.
-- **Vapi4k now resolves from Maven Central.** The Maven group ID changed from
-  `com.github.vapi4k.vapi4k` to `com.vapi4k`, and the JitPack repository has
-  been removed from the build.
-- **`.env`-based configuration.** A new `.env.example` documents the
-  environment variables the template reads at startup; copy it to `.env`
-  locally. Heroku and Docker continue to inject env vars through their own
-  mechanisms.
-- **Voice and model configurations refreshed** across all three apps:
-  - Inbound call app — OpenAI GPT-4 Turbo + DeepGram Luna
-  - Outbound call app (`/callCustomer`) — Anthropic Claude Opus 4 + ElevenLabs Paula
-  - Web talk app (`/talkApp`, UI at `GET /talk`) — Groq Llama3 70B + PlayHT Jack
-- **JVM 21** is now required (already the default in the Docker image and
-  `system.properties`; now also enforced by the Gradle toolchain).
-- **README** points at the new documentation site, `https://docs.vapi4k.com/`.
+- **Vapi4k 1.8.0**, **Ktor 3.5.1**, and **Kotlin 2.4.0** — the latest upstream
+  features and fixes.
+- **Gradle 9.6.1 wrapper.**
+- **Continuous integration.** A new GitHub Actions workflow
+  (`.github/workflows/ci.yml`) builds the project on every push and pull
+  request.
+- **Build script refactor.** `build.gradle.kts` configuration is split into
+  `configureKotlin`, `configureKtor`, and `configureVersions` helpers. The
+  `dependencyUpdates` pre-release filter now uses a delimiter-aware regex that
+  rejects an unstable candidate only when the current version is stable, so
+  dependencies intentionally tracked on a pre-release line still surface newer
+  pre-releases.
+- **Makefile modernization.** Parsed project and dependency versions, a
+  self-documenting `help` target, guards for the release/Docker targets, and
+  Docker build/run/push shortcuts. The `versioncheck` target is now `versions`.
+- **Project history docs.** `CHANGELOG.md` and `RELEASE_NOTES.md` were added.
 
 ## Upgrade notes
 
-If you have a fork or downstream copy of this template:
+If you have a fork or downstream copy of this template, no source changes are
+required. To match this release:
 
-1. Replace any `com.github.vapi4k.vapi4k:vapi4k-*` dependency coordinates with
-   `com.vapi4k:vapi4k-*`.
-2. Remove the JitPack `maven(url = "https://jitpack.io")` repository entry.
-3. Make sure your build environment has **JDK 21** available
-   (`./gradlew --version` should report Java 21).
-4. Copy `.env.example` to `.env` and populate the variables your deployment
-   needs.
+1. Upgrade the Gradle wrapper to **9.6.1** (`make upgrade-wrapper` or
+   `./gradlew wrapper --gradle-version 9.6.1`).
+2. Pull the dependency versions from `gradle/libs.versions.toml` (Vapi4k
+   **1.8.0**, Ktor **3.5.1**, Kotlin **2.4.0**).
 
 ## Build & run
 

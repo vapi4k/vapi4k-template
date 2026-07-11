@@ -2,9 +2,36 @@
 
 All notable changes to this project are documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-and this project tracks the bundled [Vapi4k](https://github.com/vapi4k/vapi4k)
-library version.
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
+As of **1.2.0**, the template is versioned independently of the bundled
+[Vapi4k](https://github.com/vapi4k/vapi4k) library, and each release records
+the Vapi4k version it ships. Earlier entries (**1.7.0** and below) mirror the
+bundled Vapi4k library version.
+
+## [1.2.0][1.2.0-2026] - 2026-07-10
+
+First template release versioned independently of the bundled Vapi4k library.
+Ships **Vapi4k 1.8.0**, **Ktor 3.5.1**, **Kotlin 2.4.0**, and the **Gradle
+9.6.1** wrapper.
+
+### Added
+- GitHub Actions CI workflow (`.github/workflows/ci.yml`) that builds the
+  project on every push and pull request.
+- `CHANGELOG.md` and `RELEASE_NOTES.md` documenting the project's history.
+- Makefile `help` target, release/Docker/image guards, and Docker
+  build/run/push shortcuts.
+
+### Changed
+- Vapi4k upgraded to **1.8.0**; Ktor to **3.5.1**; Kotlin to **2.4.0**.
+- Gradle wrapper upgraded to **9.6.1**.
+- `build.gradle.kts` refactored into `configureKotlin`, `configureKtor`, and
+  `configureVersions` helper functions.
+- Dependency-update filtering now uses a delimiter-aware regex that rejects a
+  pre-release candidate only when the current version is stable, so
+  intentionally-tracked pre-release lines still surface newer pre-releases.
+- Makefile modernized: parsed project/dependency versions, target guards,
+  Docker hygiene, and the `versioncheck` target renamed to `versions`.
+- Version catalog key renamed from `gradle` to `gradle-wrapper`.
 
 ## [1.7.0] - 2026-04-08
 
@@ -96,7 +123,8 @@ library version.
 ### Changed
 - Vapi4k pinned to **1.1.0**; Ktor upgraded to **3.0.1**; Kotlin **2.0.20**.
 
-[1.7.0]: https://github.com/vapi4k/vapi4k-template/compare/c16fbbf...HEAD
+[1.2.0-2026]: https://github.com/vapi4k/vapi4k-template/compare/8b86ea6...HEAD
+[1.7.0]: https://github.com/vapi4k/vapi4k-template/compare/c16fbbf...8b86ea6
 [1.6.1]: https://github.com/vapi4k/vapi4k-template/compare/49dfb5f...1a3ec08
 [1.4.0]: https://github.com/vapi4k/vapi4k-template/compare/0b846c5...cadd1d0
 [1.3.2]: https://github.com/vapi4k/vapi4k-template/compare/bcba402...0b846c5
