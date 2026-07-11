@@ -1,4 +1,4 @@
-.PHONY: default help clean build jar run-jar refresh versioncheck build-docker run-docker \
+.PHONY: default help clean build jar run-jar refresh versions build-docker run-docker \
         push-docker release upgrade-wrapper \
         _require-version _require-gradle-version _require-image
 
@@ -30,7 +30,7 @@ run-jar: jar ## Build and run the fat JAR
 refresh: ## Refresh dependencies and check for updates
 	./gradlew --refresh-dependencies dependencyUpdates
 
-versioncheck: ## Check for available dependency updates
+versions: ## Check for available dependency updates
 	./gradlew dependencyUpdates --no-configuration-cache
 
 build-docker: _require-version _require-image jar ## Build a single-arch Docker image tagged with the project version
