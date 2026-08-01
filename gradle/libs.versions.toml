@@ -1,10 +1,10 @@
 [versions]
 gradle-wrapper = "9.6.1"
 jvm = "21"
-kotlin = "2.4.0"
+kotlin = "2.4.10"
 ktor = "3.5.1"
-versions = "0.54.0"
-vapi4k = "1.8.0"
+versions = "0.57.0"
+vapi4k = "1.8.1"
 
 [libraries]
 vapi4k-core = { group = "com.vapi4k", name = "vapi4k-core", version.ref = "vapi4k" }
@@ -13,4 +13,4 @@ vapi4k-dbms = { group = "com.vapi4k", name = "vapi4k-dbms", version.ref = "vapi4
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 ktor = { id = "io.ktor.plugin", version.ref = "ktor" }
-versions = { id = "com.github.ben-manes.versions", version.ref = "versions" }
+versions = { id = "io.github.ben-manes.versions", version.ref = "versions" }
