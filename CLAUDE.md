@@ -46,7 +46,7 @@ Each app configures a model, voice provider, system message, and the `WeatherLoo
 
 ## Dependencies
 
-- **Kotlin** 2.4.0, **Ktor** 3.5.1, **Vapi4k** 1.8.0
+- **Kotlin** 2.4.10, **Ktor** 3.5.1, **Vapi4k** 1.8.1
 - Gradle with Kotlin DSL (version in `gradle/wrapper/gradle-wrapper.properties`)
 - Two Vapi4k libraries: `vapi4k-core` (voice app framework) and `vapi4k-dbms` (persistence)
 - All versions managed in `gradle/libs.versions.toml` — update versions there, not in `build.gradle.kts`
