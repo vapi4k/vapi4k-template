@@ -8,6 +8,19 @@ As of **1.2.0**, the template is versioned independently of the bundled
 the Vapi4k version it ships. Earlier entries (**1.7.0** and below) mirror the
 bundled Vapi4k library version.
 
+## [1.2.1] - 2026-08-01
+
+Maintenance release. Ships **Vapi4k 1.8.1**, **Ktor 3.5.1**, **Kotlin 2.4.10**,
+and the **Gradle 9.6.1** wrapper.
+
+### Changed
+- Vapi4k upgraded to **1.8.1**; Kotlin to **2.4.10**.
+- Gradle versions plugin upgraded to **0.57.0**, and its plugin id updated from
+  `com.github.ben-manes.versions` to the relocated
+  `io.github.ben-manes.versions`.
+- Documentation refreshed to match the shipped dependency versions
+  (`README.md`, `CLAUDE.md`, `llms.txt`).
+
 ## [1.2.0][1.2.0-2026] - 2026-07-10
 
 First template release versioned independently of the bundled Vapi4k library.
@@ -123,7 +136,8 @@ Ships **Vapi4k 1.8.0**, **Ktor 3.5.1**, **Kotlin 2.4.0**, and the **Gradle
 ### Changed
 - Vapi4k pinned to **1.1.0**; Ktor upgraded to **3.0.1**; Kotlin **2.0.20**.
 
-[1.2.0-2026]: https://github.com/vapi4k/vapi4k-template/compare/8b86ea6...HEAD
+[1.2.1]: https://github.com/vapi4k/vapi4k-template/compare/e25364c...HEAD
+[1.2.0-2026]: https://github.com/vapi4k/vapi4k-template/compare/8b86ea6...e25364c
 [1.7.0]: https://github.com/vapi4k/vapi4k-template/compare/c16fbbf...8b86ea6
 [1.6.1]: https://github.com/vapi4k/vapi4k-template/compare/49dfb5f...1a3ec08
 [1.4.0]: https://github.com/vapi4k/vapi4k-template/compare/0b846c5...cadd1d0

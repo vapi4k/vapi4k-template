@@ -1,40 +1,36 @@
-# Release Notes — v1.2.0 (2026-07-10)
+# Release Notes — v1.2.1 (2026-08-01)
 
 The full version history is in [CHANGELOG.md](CHANGELOG.md). This file
 covers the most recent release only and is intended for use as the body of a
 GitHub release.
 
-This is the first template release versioned independently of the bundled
-Vapi4k library.
+This is a maintenance release: dependency updates and documentation refreshes,
+with no source or API changes.
 
 ## Highlights
 
-- **Vapi4k 1.8.0**, **Ktor 3.5.1**, and **Kotlin 2.4.0** — the latest upstream
-  features and fixes.
-- **Gradle 9.6.1 wrapper.**
-- **Continuous integration.** A new GitHub Actions workflow
-  (`.github/workflows/ci.yml`) builds the project on every push and pull
-  request.
-- **Build script refactor.** `build.gradle.kts` configuration is split into
-  `configureKotlin`, `configureKtor`, and `configureVersions` helpers. The
-  `dependencyUpdates` pre-release filter now uses a delimiter-aware regex that
-  rejects an unstable candidate only when the current version is stable, so
-  dependencies intentionally tracked on a pre-release line still surface newer
-  pre-releases.
-- **Makefile modernization.** Parsed project and dependency versions, a
-  self-documenting `help` target, guards for the release/Docker targets, and
-  Docker build/run/push shortcuts. The `versioncheck` target is now `versions`.
-- **Project history docs.** `CHANGELOG.md` and `RELEASE_NOTES.md` were added.
+- **Vapi4k 1.8.1** and **Kotlin 2.4.10** — upstream patch updates. Ktor stays
+  at **3.5.1** and the Gradle wrapper at **9.6.1**.
+- **Gradle versions plugin 0.57.0.** The plugin has been relocated, so its id
+  changed from `com.github.ben-manes.versions` to
+  `io.github.ben-manes.versions`. `./gradlew dependencyUpdates` and
+  `make versions` behave the same.
+- **Documentation refresh.** `README.md`, `CLAUDE.md`, and `llms.txt` now state
+  the shipped dependency versions.
 
 ## Upgrade notes
 
-If you have a fork or downstream copy of this template, no source changes are
-required. To match this release:
+No source changes are required for a fork or downstream copy of this template.
+To match this release:
 
-1. Upgrade the Gradle wrapper to **9.6.1** (`make upgrade-wrapper` or
-   `./gradlew wrapper --gradle-version 9.6.1`).
-2. Pull the dependency versions from `gradle/libs.versions.toml` (Vapi4k
-   **1.8.0**, Ktor **3.5.1**, Kotlin **2.4.0**).
+1. Pull the dependency versions from `gradle/libs.versions.toml` (Vapi4k
+   **1.8.1**, Ktor **3.5.1**, Kotlin **2.4.10**).
+2. If you copied the versions-plugin declaration into your own build, update the
+   plugin id to `io.github.ben-manes.versions` — the old
+   `com.github.ben-manes.versions` id is no longer the published coordinate for
+   current releases.
+
+The Gradle wrapper is unchanged from 1.2.0 (**9.6.1**).
 
 ## Build & run
 
