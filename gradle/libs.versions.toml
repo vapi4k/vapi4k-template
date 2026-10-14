@@ -1,10 +1,10 @@
 [versions]
-gradle-wrapper = "9.6.1"
+gradle-wrapper = "9.8.1"
 jvm = "21"
-kotlin = "2.4.10"
-ktor = "3.5.1"
-versions = "0.57.0"
-vapi4k = "1.8.1"
+kotlin = "2.4.21"
+ktor = "3.6.0"
+versions = "0.66.0"
+vapi4k = "1.8.2"
 
 [libraries]
 vapi4k-core = { group = "com.vapi4k", name = "vapi4k-core", version.ref = "vapi4k" }

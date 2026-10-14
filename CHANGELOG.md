@@ -8,6 +8,42 @@ As of **1.2.0**, the template is versioned independently of the bundled
 the Vapi4k version it ships. Earlier entries (**1.7.0** and below) mirror the
 bundled Vapi4k library version.
 
+## [1.2.2] - 2026-10-13
+
+Maintenance release. Ships **Vapi4k 1.8.2**, **Ktor 3.6.0**, **Kotlin 2.4.21**,
+and the **Gradle 9.8.1** wrapper.
+
+### Added
+- Dependabot version updates (`.github/dependabot.yml`), weekly with a 7-day
+  cooldown before a new release is proposed: GitHub Actions in one grouped PR,
+  and the Gradle dependencies, plugins, and wrapper, with minor and patch
+  updates grouped and each major update in a PR of its own.
+- `make versions-all` target that prints the dependency-updates plugin's full
+  report, including dependencies that are already up to date.
+
+### Changed
+- Vapi4k upgraded to **1.8.2**; Ktor to **3.6.0**; Kotlin to **2.4.21**.
+- Gradle wrapper upgraded to **9.8.1** (`gradlew.bat` regenerated).
+- CI workflow actions upgraded to checkout **v7**, setup-java **v6**, and
+  gradle/actions **v6**.
+- Gradle versions plugin upgraded to **0.66.0**, which adds the
+  `--output-formatter` option `make versions-all` relies on.
+- `make versions` now lists only the dependencies with newer versions, plus any
+  that could not be checked, via an `outputFormatter` in `build.gradle.kts`.
+  Both `versions` targets run with `--no-parallel`.
+- `CallCustomer.kt` uses `parseJson()` in place of `toJsonElement()`, which
+  Vapi4k 1.8.2 deprecates with its move to common-utils 5.x.
+- `.gitattributes` normalizes line endings for all text files (`* text=auto`),
+  and `gradlew` / `*.bat` are no longer also marked `binary`, so they diff as
+  text.
+- `CLAUDE.md` trimmed to the conventions the code does not already state.
+- Documentation refreshed to match the shipped dependency versions
+  (`README.md`, `CLAUDE.md`, `llms.txt`).
+
+### Security
+- The CI workflow pins every action to a commit SHA, and its checkout no
+  longer keeps the GitHub token in the workspace (`persist-credentials: false`).
+
 ## [1.2.1] - 2026-08-01
 
 Maintenance release. Ships **Vapi4k 1.8.1**, **Ktor 3.5.1**, **Kotlin 2.4.10**,
@@ -136,7 +172,8 @@ Ships **Vapi4k 1.8.0**, **Ktor 3.5.1**, **Kotlin 2.4.0**, and the **Gradle
 ### Changed
 - Vapi4k pinned to **1.1.0**; Ktor upgraded to **3.0.1**; Kotlin **2.0.20**.
 
-[1.2.1]: https://github.com/vapi4k/vapi4k-template/compare/e25364c...HEAD
+[1.2.2]: https://github.com/vapi4k/vapi4k-template/compare/d49faf8...HEAD
+[1.2.1]: https://github.com/vapi4k/vapi4k-template/compare/e25364c...d49faf8
 [1.2.0-2026]: https://github.com/vapi4k/vapi4k-template/compare/8b86ea6...e25364c
 [1.7.0]: https://github.com/vapi4k/vapi4k-template/compare/c16fbbf...8b86ea6
 [1.6.1]: https://github.com/vapi4k/vapi4k-template/compare/49dfb5f...1a3ec08
