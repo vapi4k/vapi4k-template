@@ -1,4 +1,4 @@
-.PHONY: default help clean build jar run-jar refresh versions build-docker run-docker \
+.PHONY: default help clean build jar run-jar refresh versions versions-all build-docker run-docker \
         push-docker release upgrade-wrapper \
         _require-version _require-gradle-version _require-image
 
@@ -30,8 +30,15 @@ run-jar: jar ## Build and run the fat JAR
 refresh: ## Refresh dependencies and check for updates
 	./gradlew --refresh-dependencies dependencyUpdates
 
-versions: ## Check for available dependency updates
-	./gradlew dependencyUpdates --no-configuration-cache
+# dependencyUpdates is marked incompatible with the configuration cache (build.gradle.kts), so a run with the cache on
+# builds an entry only to discard it, and says so. --no-configuration-cache skips the cache for this run instead.
+# build.gradle.kts gives the task a formatter that lists only what is behind; versions-all names the plugin's own plain
+# report, which also lists everything up to date.
+versions: ## List the dependencies with newer versions, and any that could not be checked
+	./gradlew dependencyUpdates --no-configuration-cache --no-parallel
+
+versions-all: ## The plugin's full dependency report, up-to-date dependencies included
+	./gradlew dependencyUpdates --no-configuration-cache --no-parallel --output-formatter=plain
 
 build-docker: _require-version _require-image jar ## Build a single-arch Docker image tagged with the project version
 	docker build -t $(IMAGE_NAME):$(VERSION) .
