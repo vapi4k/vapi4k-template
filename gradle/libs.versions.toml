@@ -1,5 +1,5 @@
 [versions]
-gradle-wrapper = "9.8.1"
+gradle-wrapper = "9.8.2"
 jvm = "21"
 kotlin = "2.4.21"
 ktor = "3.6.1"
