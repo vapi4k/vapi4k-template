@@ -2,8 +2,8 @@
 gradle-wrapper = "9.8.1"
 jvm = "21"
 kotlin = "2.4.21"
-ktor = "3.6.0"
-versions = "0.66.0"
+ktor = "3.6.1"
+versions = "0.67.0"
 vapi4k = "1.8.2"
 
 [libraries]
